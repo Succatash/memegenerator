@@ -8,6 +8,11 @@ class MemeGenerator extends Component {
 			bottomText: '',
 			randomImg: 'http://i.imgflip.com/1bij.jpg',
 			allMemeImgs: [],
+			savedMeme: {
+				savedTopText: '',
+				savedBottomText: '',
+				savedRandomImg: '',
+			},
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleClick = this.handleClick.bind(this);
@@ -29,14 +34,23 @@ class MemeGenerator extends Component {
 				Math.floor(Math.random() * this.state.allMemeImgs.length)
 			].url;
 
-		console.log(newImg);
-
 		this.setState({ randomImg: newImg });
 	};
 
 	handleChange = (event) => {
 		const { name, value } = event.target;
 		this.setState({ [name]: value });
+	};
+
+	handleMemeReset = (event) => {
+		console.log('clicked');
+		this.setState({
+			savedMeme: {
+				savedTopText: this.state.topText,
+				savedBottomText: this.state.bottomText,
+				savedRandomImg: this.state.randomImg,
+			},
+		});
 	};
 
 	/**
@@ -69,7 +83,7 @@ class MemeGenerator extends Component {
 					{/*
 once a meme is create this button will save it as a image.
 */}
-					<button>Save Meme</button>
+					<button onClick={this.handleMemeReset}>Reset</button>
 				</form>
 
 				<div className="meme">
